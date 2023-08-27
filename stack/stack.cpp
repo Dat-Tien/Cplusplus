@@ -16,7 +16,15 @@ Stack<T>::Stack(uint32_t size) {
 
 template<class T>
 Stack<T>::~Stack()  {
+<<<<<<< HEAD
     delete mArray;
+=======
+<<<<<<< HEAD
+    delete mArray;
+=======
+    delete[] mArray;
+>>>>>>> ec94f2e (update double linked list)
+>>>>>>> 9e2c02b (update double linked list)
 }
 
 template<class T>
@@ -79,7 +87,7 @@ int main(void) {
     std::cout<<"Hello world! \n";
     Stack<int32_t> stack(4);
     Stack<char*> charStack(6);
-    // Stack<string> strStack(2);
+    Stack<string> strStack(2);
     stack.push(1);
     stack.push(2);
     stack.pop();
@@ -97,4 +105,7 @@ int main(void) {
     charStack.push((char*)"5");
     stack.printStack();
     charStack.printStack();   
+    strStack.push("Wellcome");
+    strStack.push("my github");
+    strStack.printStack();
 }
