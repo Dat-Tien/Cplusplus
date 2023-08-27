@@ -17,14 +17,14 @@ template<class T>
 class DoubleLinkedList {
 public:
     Node<T>* head;
-    // Node<T>* prev;
+
 public:
     DoubleLinkedList() : head(nullptr) {}
 
     void insertFirst(T data);
     void insertBettween(T data, uint32_t pos);
-    void insertEnd(T data);
-    void deleteList(T pos);
+    void append(T data);
+    void deleted(uint32_t pos);
     void printList();
     uint32_t length();
 };
