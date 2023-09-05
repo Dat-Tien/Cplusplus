@@ -16,19 +16,12 @@ Stack<T>::Stack(uint32_t size) {
 
 template<class T>
 Stack<T>::~Stack()  {
-<<<<<<< HEAD
-    delete mArray;
-=======
-<<<<<<< HEAD
-    delete mArray;
-=======
     delete[] mArray;
->>>>>>> ec94f2e (update double linked list)
->>>>>>> 9e2c02b (update double linked list)
 }
 
 template<class T>
 void Stack<T>::pop() {
+   mArray[mTop] = 0;
    mTop--;
 }
 
