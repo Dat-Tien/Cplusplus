@@ -20,12 +20,34 @@ int32_t SearchAlgorithms<T>::iterativeBinarySearch(T arr[], const uint32_t lengt
     return -1;
 }
 
+template<class T>
+ int32_t SearchAlgorithms<T>::recursiveBinarySearch(T arr[], const uint32_t low, const uint32_t hight, const T searchData) {
+    if (hight > low) {
+        const uint32_t mid = low + (hight - low)/2;
+        if (arr[mid] == searchData) {
+            return mid;
+        }
+        if (arr[mid] > searchData) {
+            return this->recursiveBinarySearch(arr, low, mid -1, searchData);
+        }
+        if (arr[mid] < searchData) {
+            return this->recursiveBinarySearch(arr, mid + 1, hight, searchData);
+        }
+    }
+    return -1;
+}
+
 int main(void) {
     printf("hello world\n");
     uint32_t arr[] = {0, 1, 2, 4, 5, 6, 4, 10, 7, 9, 8};
     std::array<uint32_t, sizeof(arr)/sizeof(arr[0] - 1)>::iterator itr = arr;
     SearchAlgorithms<uint32_t> search;
     auto ret {search.iterativeBinarySearch(itr, sizeof(arr)/sizeof(arr[0] - 1), 6)};
+    (ret == -1) 
+        ? std::cout << "Element is not present in array\n"
+        : std::cout << "Element is present at index " << ret << std::endl;
+    printf("------------------------------------------\n");
+    ret = search.recursiveBinarySearch(itr, 0, sizeof(arr)/sizeof(arr[0] - 1), 6);
     (ret == -1) 
         ? std::cout << "Element is not present in array\n"
         : std::cout << "Element is present at index " << ret << std::endl;
