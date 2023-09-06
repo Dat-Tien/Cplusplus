@@ -11,7 +11,13 @@ LRUCache<T>::LRUCache(const uint32_t size) {
 
 template<class T>
 LRUCache<T>::~LRUCache() {
-
+    while (auto itr : mp) {
+        if (itr != mp.end()) // just in case
+        {
+            delete (*itr).second;
+            mp.erase(itr);
+        }
+    }
 }
 
 template<class T>
