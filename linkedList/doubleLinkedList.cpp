@@ -32,6 +32,49 @@ void DoubleLinkedList<T>::pushFront(T data) {
 }
 
 template<class T>
+void DoubleLinkedList<T>::popFront() {
+    if (!isEmpty()) {
+        head = head->next;
+        head->prev = nullptr;
+        delete head->prev;
+        mSize--;
+    }
+    mSize++;
+}
+
+template<class T>
+bool DoubleLinkedList<T>::isEmpty() {
+    bool ret = false;
+    if (mSize == 0) {
+        ret = true;
+    }
+    return ret;
+}
+
+template<class T>
+void DoubleLinkedList<T>::popBack() {
+    if (!isEmpty()) {
+        tail = tail->prev;
+        tail->next = nullptr;
+        delete tail->next;
+        mSize--;
+    }
+    else {
+        printf("list is empty\n");
+    }
+    mSize++;
+}
+
+template<class T>
+bool DoubleLinkedList<T>::isEmpty() {
+    bool ret = false;
+    if (mSize == 0) {
+        ret = true;
+    }
+    return ret;
+}
+
+template<class T>
 bool DoubleLinkedList<T>::isEmpty() {
     bool ret = false;
     if (mSize == 0) {
@@ -119,8 +162,10 @@ int main() {
     linkedlist.append(100);
     linkedlist.insertBettween(40, 2);
     linkedlist.append(50);
+    linkedlist.popBack();
     linkedlist.pushFront(60);
     linkedlist.deleted(3);
+    linkedlist.popFront();
     linkedlist.printList();
     printf("Linked list length %d\n",linkedlist.length());
 }

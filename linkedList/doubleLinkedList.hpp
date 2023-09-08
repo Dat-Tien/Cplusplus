@@ -22,8 +22,10 @@ public:
     DoubleLinkedList() : head(nullptr), tail(nullptr), mSize(0) {}
     ~DoubleLinkedList();
     void pushFront(T data);
+    void popFront();
     void insertBettween(T data, uint32_t pos);
     void append(T data);
+    void popBack();
     void deleted(uint32_t pos);
     void printList();
     uint32_t length();
