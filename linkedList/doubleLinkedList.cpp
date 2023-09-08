@@ -1,29 +1,48 @@
 #include "doubleLinkedList.hpp"
 
 template<class T>
-void DoubleLinkedList<T>::insertFirst(T data) {
-    Node<T>* refNode = new Node<T>(data);
+DoubleLinkedList<T>::~DoubleLinkedList() {
+    while(!isEmpty()) {
+       Node<T>* temp = head;   
+        if(head == tail) {
+            head = tail = nullptr;
+        }
+        else {
+            head = head->next;
+            head->prev = nullptr;
+        }
+        delete temp;
+        mSize--; 
+    }
+    
+}
 
-    if (head == nullptr) {
-        head = refNode;
+template<class T>
+void DoubleLinkedList<T>::pushFront(T data) {
+    Node<T>* newNode = new Node<T>(data);
+    if(isEmpty()) {
+        head = tail = newNode;
     }
     else {
-        refNode->next = head;
-        head->prev = refNode;
-        head = refNode;
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
     }
+    mSize++;
+}
+
+template<class T>
+bool DoubleLinkedList<T>::isEmpty() {
+    bool ret = false;
+    if (mSize == 0) {
+        ret = true;
+    }
+    return ret;
 }
 
 template<class T>
 uint32_t DoubleLinkedList<T>::length() {
-    uint32_t res {0};
-    Node<T>* temp = head;
-    while (temp != nullptr) {
-        temp = temp->next;
-        res += 1;
-    }
-    delete temp;
-    return res;
+    return mSize;
 }
 
 template<class T>
@@ -33,20 +52,34 @@ void DoubleLinkedList<T>::deleted(uint32_t pos) {
     while (--pos > 0) {
         temp = temp->next;
     }
-    Node<T>* node = temp->next->next;
-    free(temp->next);
-    temp->next = node;
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    mSize--;
+    delete(temp);
+}
 
+template<class T>
+void DoubleLinkedList<T>::append(T data) {
+    Node<T>* newNode = new Node<T>(data);
+    if (isEmpty()) {
+        head = tail = newNode;
+    }
+    else {
+        newNode->prev = tail;
+        tail->next = newNode;
+        tail = newNode;
+    }
+    mSize ++;
 }
 
 template<class T>
 void DoubleLinkedList<T>::insertBettween(T data, uint32_t pos) {
-    Node<T>* refNode = new Node<T>(data);
+    Node<T>* newNode = new Node<T>(data);
     Node<T>* temp = head;
     if (this->length() == 0) {
         printf("Linked list cannot be null\n");
     }
-    else if (pos <= this->length()) {
+    else if (pos < mSize) {
         while (pos > 0) {
             temp = temp->next;
             pos--;
@@ -55,9 +88,12 @@ void DoubleLinkedList<T>::insertBettween(T data, uint32_t pos) {
     else {
         
     }
-    refNode->next = temp->next;
-    refNode->prev = temp->prev;
-    temp->next = refNode;
+    newNode->next = temp->next;
+    newNode->next->prev = newNode;
+    temp->next = newNode;
+    newNode->prev = temp;
+    mSize++;
+    
 }
 template<class T>
 void DoubleLinkedList<T>::printList() {
@@ -68,33 +104,23 @@ void DoubleLinkedList<T>::printList() {
     }
 
     while(temp != nullptr) {
-        std::cout<<temp->mData<<" -> ";
+        std::cout<<temp->data<<" -> ";
         temp = temp->next;
     }
+    printf("\n");
 }
 
-template<class T>
-void DoubleLinkedList<T>::append(T data) {
-    Node<T>* refNode = new Node<T>(data);
-    Node<T>* temp = head;
-    while(temp->next != nullptr) {
-        temp = temp->next;
-    }
-    refNode->prev = temp;
-    temp->next = refNode;
-}
 
 int main() {
     DoubleLinkedList<int32_t> linkedlist;
-    linkedlist.insertFirst(10);
-    linkedlist.insertFirst(20);
-    linkedlist.insertFirst(30);
-    linkedlist.insertBettween(40, 0);
+    linkedlist.pushFront(10);
+    linkedlist.pushFront(20);
+    linkedlist.pushFront(30);
+    linkedlist.append(100);
+    linkedlist.insertBettween(40, 2);
     linkedlist.append(50);
-    linkedlist.printList();
-    std::cout<<"\n";
+    linkedlist.pushFront(60);
     linkedlist.deleted(3);
     linkedlist.printList();
-    // printf("\n%d\n",linkedlist.length());
-    
+    printf("Linked list length %d\n",linkedlist.length());
 }
