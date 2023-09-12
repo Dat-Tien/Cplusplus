@@ -66,24 +66,6 @@ void DoubleLinkedList<T>::popBack() {
 }
 
 template<class T>
-bool DoubleLinkedList<T>::isEmpty() {
-    bool ret = false;
-    if (mSize == 0) {
-        ret = true;
-    }
-    return ret;
-}
-
-template<class T>
-bool DoubleLinkedList<T>::isEmpty() {
-    bool ret = false;
-    if (mSize == 0) {
-        ret = true;
-    }
-    return ret;
-}
-
-template<class T>
 uint32_t DoubleLinkedList<T>::length() {
     return mSize;
 }
